@@ -1,54 +1,56 @@
-﻿using System;
+﻿using AbstractFactoryFilms.factories;
+using AbstractFactoryFilms.filmStrip;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pattern
+namespace AbstractFactoryFilms
 {
     public class Client
-    {
+    {     
         public void Main()
         {
             int choice;
-            string film = "";
-
             do
             {
-                Console.WriteLine("Choose the film (1-FilmA; 2-FilmB; 3-FilmC): ");
+                Console.Write("Select language: \n 1-Russian \n 2-English \n 3-Ukrainian \n 4-Exit \n Your choice is: ");
                 choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
                 {
                     case 1:
-                        film = "filmA";
-                        break;
+                        {
+                            Console.WriteLine();
+                            ClientMethod(new RussianFactory());
+                            Console.WriteLine();
+                            break;
+                        }
                     case 2:
-                        film = "filmB";
-                        break;
+                        {
+                            Console.WriteLine();
+                            ClientMethod(new EnglishFactory());
+                            Console.WriteLine();
+                            break;
+                        }
                     case 3:
-                        film = "filmC";
-                        break;
-                    default:
-                        break;
+                        {
+                            Console.WriteLine();
+                            ClientMethod(new UkrainianFactory());
+                            Console.WriteLine();
+                            break;
+                        }
+                    case 4:
+                        {
+                            break;
+                        }
                 }
+            } while (choice != 4);       
+        }
 
-                Console.WriteLine("Choose voice acting and subtitles will be set automatically (1-Rus; 2-Ukr; 3-Eng): ");
-                choice = Convert.ToInt32(Console.ReadLine());
-
-                switch (choice)
-                {
-                    case 1:
-                        Console.WriteLine($"Your choice is {film}("+new RusVoice().SetRusVoice(new RusSubs())+").");
-                        break;
-                    case 2:
-                        Console.WriteLine($"Your choice is {film}(" + new UkrVoice().SetUkrVoice(new UkrSubs()) + ").");
-                        break;
-                    case 3:
-                        Console.WriteLine($"Your choice is {film}(" + new EngVoice().SetEngVoice(new EngSubs()) + ").");
-                        break;
-                    default:
-                        break;
-                }              
-            } while (true);
+        public void ClientMethod(IFactory factory)
+        {         
+            Console.WriteLine(factory.Sound().Play());
+            Console.WriteLine(factory.Subtitle().Play());
         }
     }
 }

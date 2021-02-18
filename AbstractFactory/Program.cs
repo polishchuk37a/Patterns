@@ -1,12 +1,15 @@
-﻿using System;
+﻿using AbstractFactoryFilms.factories;
+using AbstractFactoryFilms.filmStrip;
+using System;
 
-namespace Pattern
+namespace AbstractFactoryFilms
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
             new Client().Main();
         }
+      
     }
 }
